@@ -1,23 +1,28 @@
 document.body.addEventListener('click', function(event) {
   // Check if the clicked element is an image
   if (event.target.tagName === 'IMG') {
-    event.preventDefault(); // Prevents navigating away if the image is inside a link
+    event.preventDefault(); 
     
     const img = event.target;
     
-    // 1. Coordinates relative to the image as displayed on the screen
+    // Coordinates relative to the image as displayed on the screen
     const displayX = event.offsetX;
     const displayY = event.offsetY;
     
-    // 2. Coordinates relative to the actual, original unscaled image file
-    const originalX = Math.round((displayX / img.clientWidth) * img.naturalWidth);
-    const originalY = Math.round((displayY / img.clientHeight) * img.naturalHeight);
+    // Scale coordinates to a theoretical 1920x1080 canvas
+    const targetWidth = 1920;
+    const targetHeight = 1080;
     
-    // Output the results neatly in a table
-    console.log(`%c📍 Click Coordinates for: ${img.src.split('/').pop()}`, 'color: #00d8ff; font-weight: bold;');
+    // Calculate the scaled coordinates
+    // We divide the clicked X by the displayed width to get a percentage (0.0 to 1.0)
+    // Then multiply by our target width (1920)
+    const scaledX = Math.round((displayX / img.clientWidth) * targetWidth);
+    const scaledY = Math.round((displayY / img.clientHeight) * targetHeight);
+    
+    console.log(`%c📍 Scaled Coordinates for: ${img.src.split('/').pop()}`, 'color: #00d8ff; font-weight: bold;');
     console.table({
       "Displayed Pixels": { X: displayX, Y: displayY },
-      "Original File Pixels": { X: originalX, Y: originalY }
+      "Scaled (1920x1080)": { X: scaledX, Y: scaledY }
     });
   }
 });
