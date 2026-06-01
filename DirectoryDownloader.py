@@ -190,3 +190,34 @@ echo "__RC__$?"
                 failed.append(file_url)
 
         return failed
+
+"""
+class MyRemoteShell:
+    def execute(self, command):
+        """
+        Execute command remotely.
+
+        Returns stdout as string.
+        """
+        pass
+
+
+shell = MyRemoteShell()
+
+downloader = DirectoryDownloader(
+    remote_shell=shell,
+    retries=3,
+    retry_delay=5,
+)
+
+failed = downloader.download_directory(
+    "https://example.com/releases/"
+)
+
+if failed:
+    print("\nFailed files:")
+    for f in failed:
+        print(f)
+else:
+    print("\nAll downloads completed successfully.")
+"""
